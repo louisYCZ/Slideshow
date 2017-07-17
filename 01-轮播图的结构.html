@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    
+    #slide {
+      width: 790px;
+      height: 340px;
+      margin: 100px auto;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    /*
+      轮播图样式的特点：
+        1. ul要足够的宽，要求能够一行放下所有的li
+        2. 父盒子的宽高和图片的宽高一样
+        3. 父盒子要有一个overflow:hidden ,仅显示一张图片，不多不少
+    */
+    
+    #slide ul {
+      width: 800%;
+      position: absolute;
+    }
+    
+    #slide ul li {
+      float: left;
+    }
+    
+    #slide ul img {
+      display: block;
+    }
+    
+    #slide ol {
+      width: 182px;
+      height: 20px;
+      background-color: rgba(255, 255, 255, .6);
+      /*background-color: pink;*/
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      margin-left: -91px;
+      border-radius: 10px;
+    }
+
+    #slide ol li {
+      width: 12px;
+      height: 12px;
+      float: left;
+      background-color: #fff;
+      border-radius: 50%;
+      margin-top: 4px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    #slide ol li.current {
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+
+<div id="slide">
+  <!--放了所有的图片-->
+  <ul>
+    <li>
+      <a href="#">
+        <img src="images/1.jpg" alt="">
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <img src="images/2.jpg" alt="">
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <img src="images/3.jpg" alt="">
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <img src="images/4.jpg" alt="">
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <img src="images/5.jpg" alt="">
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <img src="images/6.jpg" alt="">
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <img src="images/7.jpg" alt="">
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <img src="images/8.jpg" alt="">
+      </a>
+    </li>
+  </ul>
+  
+  <ol>
+    <li class="current"></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ol>
+</div>
+<script src="animate.js"></script>
+<script>
+
+  var slide = document.getElementById("slide");
+  var ul = slide.children[0];
+  var ol = slide.children[1];
+  var lis = ol.children;
+
+  //获取图片的宽度
+
+  var imgWidth = slide.offsetWidth;
+  //给所有的小圆点注册点击事件
+  for (var i = 0; i < lis.length; i++) {
+    lis[i].index = i;
+    lis[i].onclick = function () {
+      //给小圆点 高亮排他
+      for (var i = 0; i < lis.length; i++) {
+        //干掉所有人
+        lis[i].className = "";
+      }
+      // 复活我自己
+      this.className = "current";
+      //目标的距离为负数 根据lis的下标 来决定距离的大小
+      //记住一定要给ul定位
+      var target = -this.index*imgWidth;
+      animate(ul, target, 40);
+    }
+  }
+
+
+</script>
+
+
+</body>
+</html>
