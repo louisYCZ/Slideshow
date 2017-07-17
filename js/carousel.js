@@ -24,7 +24,7 @@
       this.classList.add("active");
       var target = -this.index * width;
       animate(ul, target, 50);
-      if (count > ullis.length - 1) {
+      if (count ==ullis.length - 1) {
         count = 0;
         ul.style.left = 0;
       }
@@ -33,23 +33,42 @@
   }
 
   right.onclick = function () {
-    count++;
-    if (count > ullis.length - 1) {
+
+    if (count==ullis.length - 1) {
       count = 0;
       ul.style.left = 0;
     }
+    count++;
     for ( var i = 0 ; i < ollis.length ; i ++){
       ollis[i].classList.remove("active");
     }
-    if(count>ullis.length-1){
+    if(count>=ullis.length-1){
       ollis[0].classList.add("active");
     }else {
       ollis[count].classList.add("active");
     }
     var target = -count * width;
     animate(ul, target, 50);
+  };
 
+  left.onclick=function () {
 
+    if(count<=0){
+      count=ullis.length-1;
+      ul.style.left=-count*width+'px';
+    }
+    count--;
+
+    for ( var i = 0 ; i < ollis.length ; i ++){
+      ollis[i].classList.remove('active');
+    }
+    if(count>=ollis.length-1){
+      ollis[0].classList.add('active')
+    }else {
+      ollis[count].classList.add('active');
+    }
+    var target=-count*width;
+    animate(ul,target,50)
   }
 
 
