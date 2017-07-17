@@ -12,7 +12,20 @@
   var right = arrow.querySelector(".right");
   var left = arrow.querySelector(".left");
   var width = carousel.offsetWidth;
-  var count = 0;
+  var count = 0,
+    timer=null;
+
+  carousel.onmouseover=function () {
+    arrow.style.display='block';
+    clearInterval(timer);
+  }
+  carousel.onmouseout=function () {
+    arrow.style.display='none';
+    timer=setInterval(function () {
+      right.onclick();
+    },1000)
+  }
+
   for (var i = 0; i < ollis.length; i++) {
     ollis[i].index = i;
     ollis[i].onclick = function () {
@@ -71,5 +84,8 @@
     animate(ul,target,50)
   }
 
+  timer=setInterval(function () {
+    right.onclick();
+  },1000)
 
 })()
